@@ -265,7 +265,7 @@ export default function Home() {
           </nav>
           <div className="flex items-center gap-2.5">
             <ThemeToggle />
-            <a href="#practice" className="hidden rounded-full border border-slate-200/80 bg-white/50 px-4 py-2.5 text-[12px] font-bold text-slate-800 transition hover:-translate-y-0.5 hover:border-[#00c9a7]/40 dark:border-white/10 dark:bg-white/[.05] dark:text-white sm:block">Войти в практику</a>
+            <a href="/operator" className="hidden rounded-full border border-slate-200/80 bg-white/50 px-4 py-2.5 text-[12px] font-bold text-slate-800 transition hover:-translate-y-0.5 hover:border-[#00c9a7]/40 dark:border-white/10 dark:bg-white/[.05] dark:text-white sm:block">Вход в практику</a>
             <a href="https://t.me/HRinformHR_bot" target="_blank" rel="noreferrer" className="group hidden items-center gap-2 rounded-full bg-slate-950 px-4 py-2.5 text-[12px] font-bold text-white shadow-[0_10px_30px_rgba(0,201,167,.2)] transition hover:-translate-y-0.5 hover:bg-[#009f86] hover:shadow-[0_12px_38px_rgba(0,201,167,.32)] dark:bg-white dark:text-slate-950 dark:hover:bg-[#55ebd2] sm:inline-flex">
               <span className="hidden md:inline">Откликнуться</span><span className="md:hidden">Отклик</span><ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
@@ -277,6 +277,7 @@ export default function Home() {
         {menuOpen && (
           <nav className="absolute inset-x-4 top-[78px] rounded-[24px] border border-white/80 bg-white/90 p-3 shadow-[0_24px_70px_rgba(15,23,42,.16)] backdrop-blur-2xl lg:hidden dark:border-white/10 dark:bg-[#0d182b]/95" aria-label="Мобильная навигация">
             {navItems.map(([label, href]) => <a key={label} href={href} onClick={() => setMenuOpen(false)} className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-sm font-bold text-slate-800 transition hover:bg-slate-100 dark:text-white dark:hover:bg-white/[.06]">{label}<ChevronRight className="size-4 text-slate-400" /></a>)}
+            <a href="/operator" className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-sm font-bold text-slate-800 transition hover:bg-slate-100 dark:text-white dark:hover:bg-white/[.06]">Вход в практику<ChevronRight className="size-4 text-slate-400" /></a>
             <a href="https://t.me/HRinformHR_bot" target="_blank" rel="noreferrer" className="mt-2 flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#00b998] to-[#00a7cd] px-4 py-3.5 text-sm font-extrabold text-white"><Send className="size-4" /> Откликнуться</a>
           </nav>
         )}
@@ -299,11 +300,11 @@ export default function Home() {
               HR Prime набирает команду для удалённой работы: поддержка онлайн-чата и телекома, страховые агенты и affiliate-менеджеры. Гибкий график, оплачиваемое обучение и помощь с оформлением.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-              <a href="#practice" className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#00b998] to-[#00a7cd] px-6 py-3 text-[13px] font-extrabold text-white shadow-[0_14px_38px_rgba(0,201,167,.28)] transition hover:-translate-y-1 hover:shadow-[0_18px_48px_rgba(0,201,167,.38)]">Войти в практику <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></a>
+              <a href="/operator" className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#00b998] to-[#00a7cd] px-6 py-3 text-[13px] font-extrabold text-white shadow-[0_14px_38px_rgba(0,201,167,.28)] transition hover:-translate-y-1 hover:shadow-[0_18px_48px_rgba(0,201,167,.38)]">Вход в практику <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></a>
               <a href="https://t.me/HRinformHR_bot" target="_blank" rel="noreferrer" className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-slate-200 bg-white/70 px-6 py-3 text-[13px] font-extrabold text-slate-900 shadow-sm backdrop-blur-xl transition hover:-translate-y-1 hover:border-[#00b4d8]/35 hover:shadow-[0_14px_34px_rgba(0,180,216,.12)] dark:border-white/10 dark:bg-white/[.055] dark:text-white"><Send className="size-4 fill-[#24a1de] text-[#24a1de]" />Откликнуться в Telegram</a>
               <a href="#vacancies" className="group inline-flex min-h-12 items-center justify-center gap-2 px-3 text-[12px] font-bold text-slate-500 transition hover:text-slate-950 dark:text-slate-400 dark:hover:text-white"><ArrowDown className="size-4 transition-transform group-hover:translate-y-1" />Смотреть вакансии</a>
             </div>
-            <p className="mt-5 flex max-w-[650px] items-start gap-2 text-[11px] leading-relaxed text-slate-400 sm:text-[12px]"><LockKeyhole className="mt-0.5 size-3.5 shrink-0" />Уже получили доступ к тренажёру? Входите по логину и паролю, который установили при активации.</p>
+            <p className="mt-5 flex max-w-[650px] items-start gap-2 text-[11px] leading-relaxed text-slate-400 sm:text-[12px]"><LockKeyhole className="mt-0.5 size-3.5 shrink-0" />Уже получили доступ к тренажёру? Входите по логину, который выдал менеджер.</p>
           </div>
           <WorkspaceCard />
         </div>
@@ -568,7 +569,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col gap-4 pt-7 text-[11px] font-medium text-slate-500 sm:flex-row sm:items-center sm:justify-between">
             <p>© 2026 HR Prime. Все права защищены.</p>
-            <a href="#practice" className="transition hover:text-[#008f78] dark:hover:text-white">Вход для менеджера</a>
+            <a href="/manager" className="transition hover:text-[#008f78] dark:hover:text-white">Вход для менеджера</a>
           </div>
         </div>
       </footer>

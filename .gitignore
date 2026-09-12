@@ -30,6 +30,11 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+.dev.vars*
+
+# shared hosting Telegram bot secrets and runtime state
+/shared-hosting-telegram-bot/config.php
+/shared-hosting-telegram-bot/storage/*.json
 
 # vercel
 .vercel
