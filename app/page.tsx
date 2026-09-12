@@ -112,7 +112,7 @@ function ThemeToggle() {
 
   useEffect(() => {
     const stored = window.localStorage.getItem("hr-prime-theme");
-    const initial = stored === "dark" || (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const initial = stored === "dark";
     setDark(initial);
     document.documentElement.classList.toggle("dark", initial);
   }, []);
@@ -162,72 +162,92 @@ function SectionHeader({
 }
 
 function WorkspaceCard() {
+  const candidateSteps = [
+    { label: "Отклик", state: "done" },
+    { label: "Знакомство", state: "done" },
+    { label: "Обучение", state: "current" },
+    { label: "Старт", state: "next" },
+  ];
+
   return (
-    <div id="practice" className="relative mx-auto w-full max-w-[590px] lg:ml-auto">
-      <div className="absolute -inset-10 -z-10 rounded-full bg-[#00c9a7]/15 blur-3xl dark:bg-[#00c9a7]/10" />
+    <div id="practice" className="relative mx-auto w-full max-w-[540px] xl:ml-auto">
+      <div className="absolute -inset-12 -z-10 rounded-full bg-[#00c9a7]/16 blur-3xl dark:bg-[#00c9a7]/10" />
       <Image
         src="/hr-prime-hero.png"
         alt="Объёмная сфера удалённой команды HR Prime"
         width={1448}
         height={1086}
         priority
-        className="pointer-events-none absolute -right-[15%] -top-[27%] z-0 w-[82%] select-none opacity-60 drop-shadow-[0_28px_48px_rgba(0,180,216,.18)] sm:-right-[22%] sm:-top-[32%] dark:opacity-35"
+        className="pointer-events-none absolute -right-[20%] -top-[26%] z-0 hidden w-[76%] select-none opacity-45 drop-shadow-[0_28px_48px_rgba(0,180,216,.16)] sm:block sm:-right-[24%] sm:-top-[32%] dark:opacity-25"
       />
-      <div className="relative z-10 overflow-hidden rounded-[30px] border border-white/80 bg-white/70 p-2.5 shadow-[0_35px_90px_rgba(15,23,42,.16),0_0_0_1px_rgba(255,255,255,.4)] backdrop-blur-2xl dark:border-white/10 dark:bg-[#0b1327]/75 dark:shadow-[0_35px_100px_rgba(0,0,0,.42),0_0_70px_rgba(0,201,167,.08)]">
-        <div className="rounded-[23px] border border-slate-200/70 bg-[#f8fbfc]/85 p-4 sm:p-5 dark:border-white/[.07] dark:bg-[#0c1529]/90">
-          <div className="mb-5 flex items-center justify-between gap-3 border-b border-slate-200/70 pb-4 dark:border-white/[.07]">
-            <div className="flex items-center gap-3">
-              <div className="grid size-9 place-items-center rounded-xl bg-slate-950 text-[10px] font-black tracking-[-.08em] text-white shadow-[0_8px_22px_rgba(0,201,167,.22)] dark:bg-white dark:text-slate-950">HP</div>
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[.22em] text-slate-400">HR-Prime</p>
-                <p className="text-sm font-bold tracking-[-.02em] text-slate-900 dark:text-white">Workspace</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 rounded-full border border-emerald-200/70 bg-emerald-50 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-[.12em] text-emerald-700 dark:border-emerald-400/15 dark:bg-emerald-400/10 dark:text-emerald-300">
-              <span className="relative flex size-1.5"><span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-70" /><span className="relative inline-flex size-1.5 rounded-full bg-emerald-500" /></span>
-              Online
-            </div>
+      <div className="workspace-window relative z-10 overflow-hidden rounded-[30px] border border-[#c9dce5] bg-[#eaf3f8]/95 shadow-[0_32px_85px_rgba(45,88,107,.17),0_2px_8px_rgba(45,88,107,.08)] backdrop-blur-2xl dark:border-white/10 dark:bg-[#0c1829]/92 dark:shadow-[0_38px_100px_rgba(0,0,0,.44),0_0_70px_rgba(0,201,167,.08)]">
+        <div className="flex h-10 items-center justify-between border-b border-[#ccdde5] bg-white/30 px-4 dark:border-white/[.07] dark:bg-white/[.025]">
+          <div className="flex items-center gap-1.5" aria-hidden="true">
+            <span className="size-2 rounded-full bg-[#4cafc2]" />
+            <span className="size-2 rounded-full bg-[#bdd1bd]" />
+            <span className="size-2 rounded-full bg-[#c6d1da]" />
           </div>
+          <p className="text-[10px] font-semibold uppercase tracking-[.13em] text-slate-600 dark:text-slate-400">HR-Prime · Workspace</p>
+        </div>
 
-          <div className="mb-5 grid grid-cols-4 gap-1.5" aria-label="Этапы отбора">
-            {["Отклик", "Знакомство", "Обучение", "Старт"].map((item, index) => (
-              <div key={item} className="min-w-0">
-                <div className={`mb-2 h-1 rounded-full ${index < 3 ? "bg-gradient-to-r from-[#00c9a7] to-[#00b4d8]" : "bg-slate-200 dark:bg-white/10"}`} />
-                <p className={`truncate text-[9px] font-bold uppercase tracking-[.06em] ${index === 2 ? "text-[#009d84] dark:text-[#46e5ca]" : "text-slate-400"}`}>{item}</p>
+        <div className="grid gap-4 p-4 sm:grid-cols-[1.5fr_.95fr] sm:grid-rows-[minmax(288px,auto)_132px] sm:p-5">
+          <section aria-label="Диалог с HR Prime" className="rounded-[20px] border border-[#d5e3e9] bg-white/58 p-4 shadow-[0_9px_26px_rgba(69,98,112,.08)] backdrop-blur-xl dark:border-white/[.07] dark:bg-white/[.045] sm:p-5">
+            <div className="flex items-center justify-between border-b border-[#d8e5ea] pb-3 dark:border-white/[.07]">
+              <div className="flex items-center gap-3">
+                <span className="grid size-9 place-items-center rounded-full bg-[#d6f0f3] text-[#0699a5] dark:bg-[#00c9a7]/15 dark:text-[#50e7d0]"><MessagesSquare className="size-[18px]" /></span>
+                <div>
+                  <h3 className="text-[14px] font-extrabold leading-tight tracking-[-.025em] text-slate-700 dark:text-white">HR-prime бот</h3>
+                  <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[.08em] text-slate-400">онлайн</p>
+                </div>
               </div>
-            ))}
-          </div>
+              <span className="relative flex size-2" aria-label="Бот онлайн">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#059ca4] opacity-35" />
+                <span className="relative inline-flex size-2 rounded-full bg-[#0798a1]" />
+              </span>
+            </div>
 
-          <div className="space-y-3">
-            <div className="flex items-start gap-2.5">
-              <div className="grid size-8 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#00c9a7] to-[#00b4d8] text-white shadow-[0_8px_20px_rgba(0,201,167,.25)]"><Sparkles className="size-3.5" /></div>
-              <div className="max-w-[82%] rounded-[5px_18px_18px_18px] border border-slate-200/70 bg-white px-3.5 py-3 text-[12px] leading-relaxed text-slate-600 shadow-sm dark:border-white/[.07] dark:bg-white/[.05] dark:text-slate-300">
-                Отлично! Доступ к обучению открыт. Начнём с короткой практики?
+            <div className="mt-3 flex min-h-[196px] flex-col gap-2.5">
+              <div className="w-fit rounded-[7px_16px_16px_16px] bg-[#e4eff5] px-3.5 py-2 text-[13px] font-medium text-slate-600 shadow-[0_4px_12px_rgba(72,104,119,.06)] dark:bg-white/[.07] dark:text-slate-200">Здравствуйте! 👋</div>
+              <div className="w-fit rounded-[7px_16px_16px_16px] bg-[#e4eff5] px-3.5 py-2 text-[13px] font-medium text-slate-600 shadow-[0_4px_12px_rgba(72,104,119,.06)] dark:bg-white/[.07] dark:text-slate-200">Как вас зовут?</div>
+              <div className="flex justify-end">
+                <div className="rounded-[16px_7px_16px_16px] bg-[#059ba3] px-3.5 py-2 text-[13px] font-bold text-white shadow-[0_9px_20px_rgba(5,155,163,.22)]">Анна</div>
+              </div>
+              <div className="mt-auto w-fit rounded-[16px_16px_16px_7px] border border-[#91d7df] bg-[#def2f4] px-3.5 py-2.5 text-[13px] font-extrabold text-[#159aa2] shadow-[0_7px_18px_rgba(5,155,163,.08)] dark:border-[#46e5ca]/20 dark:bg-[#00c9a7]/10 dark:text-[#5cebd3]">
+                <span className="inline-flex items-center gap-2"><Check className="size-3.5 stroke-[3]" /> Анкета принята <span aria-hidden="true">✅</span></span>
+              </div>
+              <div className="flex w-fit items-center gap-1.5 rounded-full bg-[#e3edf3] px-3 py-2 dark:bg-white/[.06]" aria-label="Бот печатает">
+                {[0, 1, 2].map((dot) => <span key={dot} className="typing-dot size-1.5 rounded-full bg-slate-400" style={{ animationDelay: `${dot * 150}ms` }} />)}
               </div>
             </div>
-            <div className="flex justify-end">
-              <div className="max-w-[80%] rounded-[18px_5px_18px_18px] bg-slate-950 px-3.5 py-3 text-[12px] leading-relaxed text-white shadow-[0_10px_25px_rgba(15,23,42,.16)] dark:bg-gradient-to-r dark:from-[#00a98e] dark:to-[#008fb1]">Да, готов начать 👋</div>
-            </div>
-          </div>
+          </section>
 
-          <div className="mt-5 rounded-[19px] border border-slate-200/70 bg-white/85 p-4 shadow-[0_12px_30px_rgba(15,23,42,.06)] dark:border-white/[.07] dark:bg-white/[.045]">
-            <div className="mb-3 flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[.13em] text-slate-400"><LockKeyhole className="size-3" /> Текущая вакансия</div>
-              <span className="rounded-full bg-[#00c9a7]/10 px-2 py-1 text-[9px] font-bold uppercase tracking-[.1em] text-[#00957d] dark:text-[#4be4ca]">Удалённо</span>
+          <aside aria-label="Путь кандидата" className="rounded-[20px] border border-[#d5e3e9] bg-white/52 p-4 shadow-[0_9px_26px_rgba(69,98,112,.07)] backdrop-blur-xl dark:border-white/[.07] dark:bg-white/[.04] sm:p-5">
+            <p className="text-[11px] font-extrabold uppercase tracking-[.08em] text-slate-500 dark:text-slate-400">Путь кандидата</p>
+            <ol className="relative mt-4 space-y-5 before:absolute before:bottom-3 before:left-[5px] before:top-2 before:w-px before:bg-[#8dcfd5] dark:before:bg-[#32bda9]/35">
+              {candidateSteps.map((step) => (
+                <li key={step.label} className="relative flex min-w-0 items-center gap-3 pl-0">
+                  <span className={`relative z-10 size-[11px] shrink-0 rounded-full ${step.state === "next" ? "bg-[#bfd2df] dark:bg-slate-600" : "bg-[#0898a0] shadow-[0_0_0_3px_rgba(8,152,160,.06)]"}`} />
+                  <span className={`min-w-0 text-[13px] ${step.state === "next" ? "font-medium text-slate-500 dark:text-slate-500" : "font-bold text-slate-700 dark:text-slate-200"}`}>{step.label}</span>
+                  {step.state === "current" && <span className="ml-auto shrink-0 text-[9px] font-extrabold uppercase tracking-[.05em] text-[#0799a2] dark:text-[#53e7d0]">сейчас</span>}
+                </li>
+              ))}
+            </ol>
+          </aside>
+
+          <article className="rounded-[20px] border border-[#d4e2e8] bg-white/58 p-4 shadow-[0_9px_26px_rgba(69,98,112,.07)] backdrop-blur-xl dark:border-white/[.07] dark:bg-white/[.045] sm:p-5">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-[10px] font-extrabold uppercase tracking-[.14em] text-slate-500 dark:text-slate-400">Вакансия</p>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-[#98d8df] bg-[#e0f3f5] px-2.5 py-1.5 text-[10px] font-extrabold text-[#159aa2] dark:border-[#46e5ca]/15 dark:bg-[#00c9a7]/10 dark:text-[#55e9d1]"><MapPin className="size-3" /> удалённо</span>
             </div>
-            <div className="flex items-end justify-between gap-4">
-              <div>
-                <h3 className="text-[15px] font-extrabold tracking-[-.025em] text-slate-950 dark:text-white">Специалист поддержки</h3>
-                <p className="mt-1 text-[12px] font-medium text-slate-500 dark:text-slate-400">от 55 000 ₽ / месяц</p>
-              </div>
-              <a href="#vacancies" aria-label="Перейти к вакансиям" className="grid size-9 shrink-0 place-items-center rounded-xl bg-slate-950 text-white transition hover:scale-105 hover:bg-[#00a98e] dark:bg-white dark:text-slate-950"><ArrowUpRight className="size-4" /></a>
-            </div>
+            <h3 className="mt-2 text-[16px] font-black leading-tight tracking-[-.025em] text-slate-900 dark:text-white">Специалист<br className="hidden sm:block" /> поддержки</h3>
+            <p className="mt-3 flex items-center gap-2 text-[13px] font-bold text-slate-700 dark:text-slate-300"><CircleDollarSign className="size-4 text-[#0799a2]" /> от 55 000 ₽ <span className="font-medium text-slate-400">/ месяц</span></p>
+          </article>
+
+          <div className="relative hidden overflow-hidden rounded-[20px] sm:block" aria-hidden="true">
+            <div className="absolute inset-x-5 top-7 h-px bg-gradient-to-r from-transparent via-[#b9dbe0] to-transparent opacity-60 dark:via-white/10" />
+            <div className="absolute bottom-5 right-5 size-16 rounded-full border border-[#b9dbe0]/55 dark:border-white/[.06]" />
           </div>
         </div>
-      </div>
-      <div className="float-slow absolute -bottom-5 -left-3 z-20 hidden items-center gap-2 rounded-2xl border border-white/80 bg-white/80 px-3 py-2.5 shadow-[0_14px_40px_rgba(15,23,42,.13)] backdrop-blur-xl sm:flex dark:border-white/10 dark:bg-[#111b30]/80">
-        <span className="grid size-8 place-items-center rounded-xl bg-[#00c9a7]/12 text-[#009b82]"><Check className="size-4" /></span>
-        <div><p className="text-[10px] font-bold text-slate-950 dark:text-white">Обучение оплачено</p><p className="text-[9px] text-slate-400">Можно начинать</p></div>
       </div>
     </div>
   );
@@ -263,15 +283,18 @@ export default function Home() {
         )}
       </header>
 
-      <section className="hero-grid relative isolate overflow-hidden pb-12 pt-[120px] sm:pb-16 sm:pt-[145px] lg:min-h-[900px] lg:pb-24 lg:pt-[175px]">
+      <section className="hero-grid relative isolate overflow-hidden pb-12 pt-[120px] sm:pb-16 sm:pt-[145px] lg:min-h-[900px] lg:pb-24 lg:pt-[160px]">
         <div className="orb orb-one" /><div className="orb orb-two" />
-        <div className="mx-auto grid max-w-[1480px] items-center gap-16 px-5 sm:px-8 lg:grid-cols-[1.02fr_.98fr] lg:gap-10 xl:px-12">
-          <div className="relative z-10 max-w-[760px]">
+        <div className="mx-auto grid max-w-[1480px] items-center gap-16 px-5 sm:px-8 xl:grid-cols-[minmax(0,1fr)_minmax(500px,540px)] xl:gap-16 xl:px-12">
+          <div className="relative z-10 min-w-0 max-w-[690px]">
             <div className="mb-7 inline-flex max-w-full items-center gap-2 rounded-full border border-[#00c9a7]/20 bg-white/65 px-3 py-2 text-[10px] font-bold uppercase tracking-[.105em] text-slate-700 shadow-[0_8px_30px_rgba(0,201,167,.08)] backdrop-blur-xl sm:px-4 sm:text-[11px] dark:border-[#53e8cf]/15 dark:bg-white/[.055] dark:text-slate-200">
               <Sparkles className="size-3.5 shrink-0 text-[#00a98e]" /><span className="truncate">Удалённая работа · гибкий график · обучение</span>
             </div>
-            <h1 className="text-[clamp(2.1rem,11.1vw,3.25rem)] font-black uppercase leading-[.86] tracking-[-.075em] text-slate-950 sm:text-[clamp(3.25rem,7vw,7.6rem)] sm:leading-[.84] dark:text-white">
-              Работа, которая <span className="gradient-text block text-[.84em] sm:text-[1em]">вписывается</span> в жизнь
+            <h1 className="hero-title font-black uppercase text-slate-950 dark:text-white">
+              <span className="block">Работа,</span>
+              <span className="block">которая</span>
+              <span className="gradient-text block text-[.84em]">вписывается</span>
+              <span className="block">в жизнь</span>
             </h1>
             <p className="mt-7 max-w-[680px] text-[16px] leading-[1.72] text-slate-600 sm:text-[17px] dark:text-slate-300">
               HR Prime набирает команду для удалённой работы: поддержка онлайн-чата и телекома, страховые агенты и affiliate-менеджеры. Гибкий график, оплачиваемое обучение и помощь с оформлением.
@@ -549,7 +572,7 @@ export default function Home() {
         </div>
       </footer>
 
-      <a href="#top" aria-label="Наверх" className="fixed bottom-5 right-5 z-40 grid size-12 place-items-center rounded-full border border-white/70 bg-white/80 text-slate-950 shadow-[0_12px_40px_rgba(15,23,42,.16)] backdrop-blur-xl transition hover:-translate-y-1 hover:bg-[#00c9a7] hover:text-white dark:border-white/10 dark:bg-[#111c30]/80 dark:text-white dark:hover:bg-[#00a98e]"><ArrowUp className="size-4" /></a>
+      <a href="#top" aria-label="Наверх" className="fixed bottom-5 right-5 z-40 hidden size-12 place-items-center rounded-full border border-white/70 bg-white/80 text-slate-950 shadow-[0_12px_40px_rgba(15,23,42,.16)] backdrop-blur-xl transition hover:-translate-y-1 hover:bg-[#00c9a7] hover:text-white sm:grid dark:border-white/10 dark:bg-[#111c30]/80 dark:text-white dark:hover:bg-[#00a98e]"><ArrowUp className="size-4" /></a>
     </main>
   );
 }
