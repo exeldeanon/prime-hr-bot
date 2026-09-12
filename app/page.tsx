@@ -8,7 +8,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   BookOpenCheck,
-  Bot,
   BriefcaseBusiness,
   Building2,
   CalendarDays,
@@ -19,7 +18,6 @@ import {
   ExternalLink,
   FileCheck2,
   Handshake,
-  Headphones,
   HeartHandshake,
   Laptop2,
   LockKeyhole,
@@ -96,12 +94,11 @@ const steps = [
 function Brand() {
   return (
     <a href="#top" className="group flex items-center gap-2.5" aria-label="HR Prime — наверх">
-      <span className="relative grid size-10 place-items-center overflow-hidden rounded-[14px] bg-[#0f172a] shadow-[0_10px_30px_rgba(0,201,167,.28)] ring-1 ring-white/10">
-        <span className="absolute inset-0 bg-[radial-gradient(circle_at_70%_15%,#00e7c2,transparent_42%)]" />
-        <span className="relative text-[12px] font-extrabold tracking-[-.08em] text-white">HP</span>
+      <span className="brand-mark relative grid size-11 shrink-0 place-items-center overflow-hidden rounded-[15px] border border-slate-200/80 bg-white/80 shadow-[0_10px_30px_rgba(0,169,181,.13)] backdrop-blur-xl transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_14px_36px_rgba(0,169,181,.2)] dark:border-white/10 dark:bg-white/[.92]">
+        <Image src="/hr-prime-logo.png" alt="" width={1254} height={1254} className="size-[52px] max-w-none scale-[1.14] select-none" />
       </span>
-      <span className="text-[18px] font-extrabold tracking-[-.045em] text-slate-950 dark:text-white">
-        HR <span className="text-[#00a98e] dark:text-[#36e3c6]">Prime</span>
+      <span className="text-[19px] font-black tracking-[-.055em] text-slate-950 dark:text-white">
+        HR <span className="gradient-text">Prime</span>
       </span>
     </a>
   );
@@ -113,8 +110,10 @@ function ThemeToggle() {
   useEffect(() => {
     const stored = window.localStorage.getItem("hr-prime-theme");
     const initial = stored === "dark";
-    setDark(initial);
     document.documentElement.classList.toggle("dark", initial);
+    const frame = window.requestAnimationFrame(() => setDark(initial));
+
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   const toggle = () => {
@@ -194,7 +193,7 @@ function WorkspaceCard() {
           <section aria-label="Диалог с HR Prime" className="rounded-[20px] border border-[#d5e3e9] bg-white/58 p-4 shadow-[0_9px_26px_rgba(69,98,112,.08)] backdrop-blur-xl dark:border-white/[.07] dark:bg-white/[.045] sm:p-5">
             <div className="flex items-center justify-between border-b border-[#d8e5ea] pb-3 dark:border-white/[.07]">
               <div className="flex items-center gap-3">
-                <span className="grid size-9 place-items-center rounded-full bg-[#d6f0f3] text-[#0699a5] dark:bg-[#00c9a7]/15 dark:text-[#50e7d0]"><MessagesSquare className="size-[18px]" /></span>
+                <span className="grid size-9 place-items-center overflow-hidden rounded-full border border-[#c9e5e7] bg-white/80 shadow-[0_6px_16px_rgba(5,155,163,.1)] dark:border-white/10 dark:bg-white/[.9]"><Image src="/hr-prime-logo.png" alt="" width={1254} height={1254} className="size-[43px] max-w-none scale-[1.12] select-none" /></span>
                 <div>
                   <h3 className="text-[14px] font-extrabold leading-tight tracking-[-.025em] text-slate-700 dark:text-white">HR-prime бот</h3>
                   <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[.08em] text-slate-400">онлайн</p>
@@ -435,27 +434,27 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="process" className="section-shell relative overflow-hidden bg-slate-950 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_30%,rgba(0,201,167,.16),transparent_28%),radial-gradient(circle_at_90%_60%,rgba(0,180,216,.12),transparent_27%)]" />
-        <div className="absolute inset-0 opacity-25 [background-image:linear-gradient(rgba(255,255,255,.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.04)_1px,transparent_1px)] [background-size:58px_58px]" />
+      <section id="process" className="process-surface section-shell relative overflow-hidden text-slate-950 dark:text-white">
+        <div className="absolute -left-28 top-20 size-80 rounded-full border border-[#00c9a7]/10 bg-[#00c9a7]/[.035] dark:border-[#00c9a7]/10 dark:bg-[#00c9a7]/[.04]" />
+        <div className="absolute -right-20 bottom-12 size-72 rounded-full border border-[#00a7cd]/10 bg-[#00a7cd]/[.035] dark:border-[#00a7cd]/10 dark:bg-[#00a7cd]/[.04]" />
         <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8 xl:px-12">
           <SectionHeader
             eyebrow="Как это работает"
             title="Путь от отклика до старта"
             description="Четыре простых шага — без многоэтапных собеседований и долгих ожиданий."
-            inverse
           />
           <ol className="timeline-track relative grid gap-4 lg:grid-cols-4">
             {steps.map((step, index) => {
               const Icon = step.icon;
               return (
-                <li key={step.title} className="group relative rounded-[26px] border border-white/10 bg-white/[.055] p-6 backdrop-blur-lg transition duration-500 hover:-translate-y-2 hover:border-[#00c9a7]/30 hover:bg-white/[.08] sm:p-7">
+                <li key={step.title} className="process-card group relative overflow-hidden rounded-[26px] border border-slate-200/80 bg-white/72 p-6 shadow-[0_20px_55px_rgba(37,86,98,.07)] backdrop-blur-xl transition duration-500 hover:-translate-y-2 hover:border-[#00c9a7]/35 hover:shadow-[0_28px_70px_rgba(0,169,142,.13)] dark:border-white/10 dark:bg-white/[.055] dark:shadow-none dark:hover:border-[#00c9a7]/30 dark:hover:bg-white/[.08] sm:p-7">
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00c9a7]/55 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
                   <div className="mb-12 flex items-center justify-between">
                     <span className="grid size-11 place-items-center rounded-2xl bg-gradient-to-br from-[#00c9a7] to-[#00a4cc] text-white shadow-[0_12px_34px_rgba(0,201,167,.24)]"><Icon className="size-5" /></span>
-                    <span className="font-mono text-[11px] font-bold tracking-[.16em] text-white/30">0{index + 1} / 04</span>
+                    <span className="font-mono text-[11px] font-bold tracking-[.16em] text-slate-300 dark:text-white/30">0{index + 1} / 04</span>
                   </div>
-                  <h3 className="text-[25px] font-black tracking-[-.04em]">{step.title}</h3>
-                  <p className="mt-4 text-[14px] leading-[1.7] text-slate-300">{step.text}</p>
+                  <h3 className="text-[25px] font-black tracking-[-.04em] text-slate-950 dark:text-white">{step.title}</h3>
+                  <p className="mt-4 text-[14px] leading-[1.7] text-slate-600 dark:text-slate-300">{step.text}</p>
                 </li>
               );
             })}
@@ -514,13 +513,14 @@ export default function Home() {
             description="Быстрее всего — в Telegram. Откликнуться можно в один клик."
           />
           <div className="grid gap-5 lg:grid-cols-3">
-            <a href="https://t.me/HRinformHR_bot" target="_blank" rel="noreferrer" className="telegram-card group relative min-h-[300px] overflow-hidden rounded-[30px] bg-slate-950 p-7 text-white shadow-[0_30px_75px_rgba(0,180,216,.19)] transition duration-500 hover:-translate-y-2 sm:p-9">
-              <div className="absolute -right-16 -top-20 size-72 rounded-full bg-[#00c9a7]/25 blur-3xl transition duration-700 group-hover:scale-125" />
+            <a href="https://t.me/HRinformHR_bot" target="_blank" rel="noreferrer" className="telegram-card group relative min-h-[300px] overflow-hidden rounded-[30px] border border-[#aee7de] bg-[linear-gradient(145deg,#ebfffb_0%,#e8faff_100%)] p-7 text-slate-950 shadow-[0_30px_75px_rgba(0,180,216,.13)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_34px_85px_rgba(0,180,216,.2)] dark:border-white/10 dark:bg-[linear-gradient(145deg,#071827_0%,#06101e_100%)] dark:text-white dark:shadow-[0_30px_75px_rgba(0,180,216,.19)] sm:p-9">
+              <div className="absolute -right-16 -top-20 size-72 rounded-full bg-[#00c9a7]/20 blur-3xl transition duration-700 group-hover:scale-125 dark:bg-[#00c9a7]/25" />
+              <div className="absolute -bottom-28 -left-24 size-64 rounded-full bg-[#00a7cd]/10 blur-3xl transition duration-700 group-hover:scale-110" />
               <div className="relative">
-                <div className="grid size-12 place-items-center rounded-2xl bg-[#24a1de] shadow-[0_12px_35px_rgba(36,161,222,.35)]"><Send className="size-5 fill-white" /></div>
-                <p className="mt-9 text-[10px] font-extrabold uppercase tracking-[.2em] text-[#5fead2]">Telegram-бот</p>
+                <div className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-[#00b99a] to-[#00a7cd] text-white shadow-[0_12px_35px_rgba(0,169,181,.25)]"><Send className="size-5 fill-white" /></div>
+                <p className="mt-9 text-[10px] font-extrabold uppercase tracking-[.2em] text-[#008d78] dark:text-[#5fead2]">Telegram-бот</p>
                 <h3 className="mt-3 max-w-[390px] text-[28px] font-black leading-[1.08] tracking-[-.045em]">Откликнуться и пройти отбор в одном чате</h3>
-                <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-5 text-[14px] font-extrabold"><span>@HRinformHR_bot</span><ArrowUpRight className="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></div>
+                <div className="mt-8 flex items-center justify-between border-t border-slate-900/10 pt-5 text-[14px] font-extrabold dark:border-white/10"><span>@HRinformHR_bot</span><ArrowUpRight className="size-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></div>
               </div>
             </a>
             <article className="glass-card group relative min-h-[300px] overflow-hidden p-7 sm:p-9">
@@ -541,33 +541,34 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="relative overflow-hidden bg-[#06101e] pb-8 pt-16 text-white sm:pt-20">
-        <div className="absolute -right-40 -top-40 size-[520px] rounded-full bg-[#00c9a7]/10 blur-3xl" />
+      <footer className="footer-surface relative overflow-hidden border-t border-slate-200/70 pb-8 pt-16 text-slate-950 dark:border-white/[.07] dark:text-white sm:pt-20">
+        <div className="absolute -right-40 -top-40 size-[520px] rounded-full bg-[#00c9a7]/12 blur-3xl dark:bg-[#00c9a7]/10" />
+        <div className="absolute -bottom-56 left-[20%] size-[480px] rounded-full bg-[#00a7cd]/[.07] blur-3xl" />
         <div className="relative mx-auto max-w-[1400px] px-5 sm:px-8 xl:px-12">
-          <div className="grid gap-12 border-b border-white/10 pb-14 lg:grid-cols-[1.4fr_.6fr_.6fr]">
+          <div className="grid gap-12 border-b border-slate-200/80 pb-14 dark:border-white/10 lg:grid-cols-[1.4fr_.6fr_.6fr]">
             <div>
               <Brand />
-              <p className="mt-6 max-w-[490px] text-[15px] leading-[1.75] text-slate-400">HR Prime — удалённая работа по договору ГПХ с самозанятыми. Открытый набор на 4 направления.</p>
-              <a href="https://t.me/HRinformHR_bot" target="_blank" rel="noreferrer" className="group mt-7 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#00b998] to-[#00a7cd] px-6 py-3.5 text-[13px] font-extrabold shadow-[0_16px_42px_rgba(0,201,167,.22)] transition hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,201,167,.34)]"><Send className="size-4 fill-white" />Написать в Telegram-бот <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></a>
+              <p className="mt-6 max-w-[490px] text-[15px] leading-[1.75] text-slate-600 dark:text-slate-400">HR Prime — удалённая работа по договору ГПХ с самозанятыми. Открытый набор на 4 направления.</p>
+              <a href="https://t.me/HRinformHR_bot" target="_blank" rel="noreferrer" className="group mt-7 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#00b998] to-[#00a7cd] px-6 py-3.5 text-[13px] font-extrabold text-white shadow-[0_16px_42px_rgba(0,201,167,.22)] transition hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,201,167,.34)]"><Send className="size-4 fill-white" />Написать в Telegram-бот <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></a>
             </div>
             <div>
-              <p className="text-[10px] font-extrabold uppercase tracking-[.2em] text-[#53e7cf]">Вакансии</p>
+              <p className="text-[10px] font-extrabold uppercase tracking-[.2em] text-[#008f78] dark:text-[#53e7cf]">Вакансии</p>
               <div className="mt-5 flex flex-col gap-3.5">
-                {vacancies.map((vacancy) => <a key={vacancy.title} href="#vacancies" className="text-[13px] font-semibold text-slate-400 transition hover:text-white">{vacancy.title}</a>)}
+                {vacancies.map((vacancy) => <a key={vacancy.title} href="#vacancies" className="text-[13px] font-semibold text-slate-600 transition hover:text-[#008f78] dark:text-slate-400 dark:hover:text-white">{vacancy.title}</a>)}
               </div>
             </div>
             <div>
-              <p className="text-[10px] font-extrabold uppercase tracking-[.2em] text-[#53e7cf]">Контакты</p>
+              <p className="text-[10px] font-extrabold uppercase tracking-[.2em] text-[#008f78] dark:text-[#53e7cf]">Контакты</p>
               <div className="mt-5 flex flex-col gap-3.5">
-                <a href="https://t.me/HRinformHR_bot" target="_blank" rel="noreferrer" className="text-[13px] font-semibold text-slate-400 transition hover:text-white">Telegram-бот</a>
-                <a href="#office" className="text-[13px] font-semibold text-slate-400 transition hover:text-white">Офис в Москве</a>
-                <a href="#contacts" className="text-[13px] font-semibold text-slate-400 transition hover:text-white">Связаться с нами</a>
+                <a href="https://t.me/HRinformHR_bot" target="_blank" rel="noreferrer" className="text-[13px] font-semibold text-slate-600 transition hover:text-[#008f78] dark:text-slate-400 dark:hover:text-white">Telegram-бот</a>
+                <a href="#office" className="text-[13px] font-semibold text-slate-600 transition hover:text-[#008f78] dark:text-slate-400 dark:hover:text-white">Офис в Москве</a>
+                <a href="#contacts" className="text-[13px] font-semibold text-slate-600 transition hover:text-[#008f78] dark:text-slate-400 dark:hover:text-white">Связаться с нами</a>
               </div>
             </div>
           </div>
           <div className="flex flex-col gap-4 pt-7 text-[11px] font-medium text-slate-500 sm:flex-row sm:items-center sm:justify-between">
             <p>© 2026 HR Prime. Все права защищены.</p>
-            <a href="#practice" className="transition hover:text-white">Вход для менеджера</a>
+            <a href="#practice" className="transition hover:text-[#008f78] dark:hover:text-white">Вход для менеджера</a>
           </div>
         </div>
       </footer>
