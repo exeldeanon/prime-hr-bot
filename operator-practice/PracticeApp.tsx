@@ -10,6 +10,8 @@ import {
   Headphones,
   Layers3,
   Lightbulb,
+  LoaderCircle,
+  LogOut,
   MessageSquare,
   Play,
   Radio,
@@ -34,7 +36,7 @@ import {
   useState,
 } from "react";
 
-import { PracticeBrand } from "@/components/hr-prime/practice-brand";
+import { PracticeBrand } from "@/components/uphire/practice-brand";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
@@ -176,16 +178,63 @@ function SectorIcon({ sector, className }: { sector: PracticeSector; className?:
   return <Layers3 className={className} />;
 }
 
+function OperatorLogoutControl({
+  pending,
+  error,
+  onLogout,
+}: {
+  pending: boolean;
+  error: string | null;
+  onLogout: () => void;
+}) {
+  return (
+    <div className="relative shrink-0">
+      <Button
+        type="button"
+        variant="outline"
+        onClick={onLogout}
+        disabled={pending}
+        aria-label={pending ? "Выполняется выход из панели оператора" : "Выйти из панели оператора"}
+        aria-busy={pending}
+        aria-describedby={error ? "operator-logout-error" : undefined}
+        className="h-9 rounded-xl border-slate-200 bg-white/75 px-2.5 text-[11px] font-extrabold text-slate-600 shadow-sm backdrop-blur hover:border-rose-200 hover:bg-rose-50 hover:text-rose-700 disabled:opacity-65 dark:border-white/10 dark:bg-white/[.045] dark:text-slate-200 dark:hover:border-rose-400/20 dark:hover:bg-rose-400/10 dark:hover:text-rose-200 sm:px-3"
+      >
+        {pending ? (
+          <LoaderCircle className="size-3.5 animate-spin" aria-hidden="true" />
+        ) : (
+          <LogOut className="size-3.5" aria-hidden="true" />
+        )}
+        <span className="hidden sm:inline">{pending ? "Выходим…" : "Выйти"}</span>
+      </Button>
+      {error ? (
+        <p
+          id="operator-logout-error"
+          role="alert"
+          className="absolute right-0 top-full z-50 mt-2 w-56 rounded-xl border border-rose-200 bg-white px-3 py-2 text-[10px] font-semibold leading-relaxed text-rose-700 shadow-lg dark:border-rose-400/20 dark:bg-[#111c2d] dark:text-rose-200"
+        >
+          {error}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
 function SetupScreen({
   login,
   settings,
   onChange,
   onStart,
+  logoutPending,
+  logoutError,
+  onLogout,
 }: {
   login: string;
   settings: ShiftSettings;
   onChange: (settings: ShiftSettings) => void;
   onStart: () => void;
+  logoutPending: boolean;
+  logoutError: string | null;
+  onLogout: () => void;
 }) {
   const load = getLoadOption(settings.load);
 
@@ -198,12 +247,19 @@ function SetupScreen({
       <div className="mx-auto max-w-6xl">
         <header className="flex items-center justify-between gap-4">
           <PracticeBrand />
-          <div className="flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/75 px-3 py-2 text-xs font-bold text-slate-600 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[.045] dark:text-slate-300">
-            <span className="size-2 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,.12)]" />
-            <span className="hidden sm:inline">Доступ активен</span>
-            <span className="max-w-32 truncate font-mono text-[11px] text-slate-400">
-              {login}
-            </span>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/75 px-3 py-2 text-xs font-bold text-slate-600 shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[.045] dark:text-slate-300">
+              <span className="size-2 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,.12)]" />
+              <span className="hidden sm:inline">Доступ активен</span>
+              <span className="max-w-32 truncate font-mono text-[11px] text-slate-400">
+                {login}
+              </span>
+            </div>
+            <OperatorLogoutControl
+              pending={logoutPending}
+              error={logoutError}
+              onLogout={onLogout}
+            />
           </div>
         </header>
 
@@ -519,6 +575,9 @@ function WorkScreen({
   onSend,
   onResolve,
   onFinish,
+  logoutPending,
+  logoutError,
+  onLogout,
 }: {
   login: string;
   settings: ShiftSettings;
@@ -532,6 +591,9 @@ function WorkScreen({
   onSend: (body: string, source: ReplySource) => void;
   onResolve: (status: Exclude<TicketStatus, "open">) => void;
   onFinish: () => void;
+  logoutPending: boolean;
+  logoutError: string | null;
+  onLogout: () => void;
 }) {
   const selectedTicket = tickets.find(
     (ticket) => ticket.scenarioId === selectedTicketId,
@@ -625,6 +687,11 @@ function WorkScreen({
               <XCircle className="size-3.5" />
               <span className="hidden lg:inline">Завершить смену</span>
             </Button>
+            <OperatorLogoutControl
+              pending={logoutPending}
+              error={logoutError}
+              onLogout={onLogout}
+            />
           </div>
         </div>
       </header>
@@ -909,11 +976,17 @@ function SummaryScreen({
   onRepeat,
   onChangeLoad,
   onChangeSector,
+  logoutPending,
+  logoutError,
+  onLogout,
 }: {
   result: ShiftResult;
   onRepeat: () => void;
   onChangeLoad: () => void;
   onChangeSector: () => void;
+  logoutPending: boolean;
+  logoutError: string | null;
+  onLogout: () => void;
 }) {
   const statistics = calculatePracticeStatistics({
     tickets: result.tickets,
@@ -946,9 +1019,16 @@ function SummaryScreen({
       <div className="mx-auto max-w-6xl">
         <header className="flex items-center justify-between gap-4">
           <PracticeBrand />
-          <span className="rounded-full border border-slate-200/80 bg-white/75 px-3 py-2 text-[10px] font-extrabold uppercase tracking-[.1em] text-slate-500 backdrop-blur dark:border-white/10 dark:bg-white/[.045] dark:text-slate-300">
-            Смена завершена
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="hidden rounded-full border border-slate-200/80 bg-white/75 px-3 py-2 text-[10px] font-extrabold uppercase tracking-[.1em] text-slate-500 backdrop-blur dark:border-white/10 dark:bg-white/[.045] dark:text-slate-300 sm:inline-flex">
+              Смена завершена
+            </span>
+            <OperatorLogoutControl
+              pending={logoutPending}
+              error={logoutError}
+              onLogout={onLogout}
+            />
+          </div>
         </header>
 
         <section className="py-10 sm:py-14">
@@ -1103,7 +1183,10 @@ export function PracticeApp({ login }: PracticeAppProps) {
   const [online, setOnline] = useState(() =>
     typeof navigator === "undefined" ? true : navigator.onLine,
   );
+  const [logoutPending, setLogoutPending] = useState(false);
+  const [logoutError, setLogoutError] = useState<string | null>(null);
   const sessionRequestActive = useRef(false);
+  const logoutRequestActive = useRef(false);
 
   useEffect(() => {
     const handleOnline = () => setOnline(true);
@@ -1164,6 +1247,37 @@ export function PracticeApp({ login }: PracticeAppProps) {
       sessionRequestActive.current = false;
     };
   }, [router]);
+
+  const logout = useCallback(async () => {
+    if (logoutRequestActive.current) {
+      return;
+    }
+
+    logoutRequestActive.current = true;
+    setLogoutPending(true);
+    setLogoutError(null);
+
+    try {
+      const response = await fetch("/api/operator/logout", {
+        method: "POST",
+        cache: "no-store",
+        credentials: "same-origin",
+        headers: { Accept: "application/json" },
+      });
+
+      if (!response.ok) {
+        throw new Error("Logout request failed");
+      }
+
+      // A full navigation drops all in-memory practice data after the session is cleared.
+      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+      window.location.assign("/operator");
+    } catch {
+      logoutRequestActive.current = false;
+      setLogoutPending(false);
+      setLogoutError("Не удалось выйти. Проверьте соединение и попробуйте ещё раз.");
+    }
+  }, []);
 
   const startShift = useCallback(() => {
     const startedAt = Date.now();
@@ -1304,6 +1418,9 @@ export function PracticeApp({ login }: PracticeAppProps) {
         settings={settings}
         onChange={setSettings}
         onStart={startShift}
+        logoutPending={logoutPending}
+        logoutError={logoutError}
+        onLogout={logout}
       />
     );
   }
@@ -1315,6 +1432,9 @@ export function PracticeApp({ login }: PracticeAppProps) {
         onRepeat={startShift}
         onChangeLoad={returnToSetup}
         onChangeSector={returnToSetup}
+        logoutPending={logoutPending}
+        logoutError={logoutError}
+        onLogout={logout}
       />
     );
   }
@@ -1336,6 +1456,9 @@ export function PracticeApp({ login }: PracticeAppProps) {
       onSend={sendReply}
       onResolve={resolveTicket}
       onFinish={finishShift}
+      logoutPending={logoutPending}
+      logoutError={logoutError}
+      onLogout={logout}
     />
   );
 }

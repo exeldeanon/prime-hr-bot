@@ -21,11 +21,11 @@ export function PracticeBrand({
         "group inline-flex items-center gap-3 rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-[#00a98e]/60 focus-visible:ring-offset-4",
         className,
       )}
-      aria-label="HR Prime"
+      aria-label="UpHire"
     >
       <span className="grid size-11 shrink-0 place-items-center overflow-hidden rounded-[15px] border border-slate-200/80 bg-white shadow-[0_10px_30px_rgba(0,169,181,.13)] transition duration-300 group-hover:-translate-y-0.5 dark:border-white/10">
         <Image
-          src="/hr-prime-logo.png"
+          src="/uphire-logo.png"
           alt=""
           width={1254}
           height={1254}

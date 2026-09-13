@@ -5,7 +5,7 @@ import { inspectInviteToken } from "@/operator-practice/access.server";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
-  title: "Вход по приглашению — практика оператора HR Prime",
+  title: "Вход по приглашению — практика оператора UpHire",
   referrer: "no-referrer",
 };
 

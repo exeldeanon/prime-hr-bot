@@ -1,6 +1,6 @@
 # Telegram bot for shared hosting
 
-This is a standalone PHP version of the HR Prime Telegram bot. It does not need
+This is a standalone PHP version of the UpHire Telegram bot. It does not need
 Next.js, npm, Node.js, Sites, Vercel, Cloudflare, or a database.
 
 ## What to upload

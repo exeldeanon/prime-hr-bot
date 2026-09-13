@@ -113,17 +113,19 @@ function configuredExpiry(now: Date): Date | null {
 }
 
 function effectiveStatus(
-  row: Pick<OperatorAccessRow, "status" | "expiresAt">,
+  row: { status: unknown; expiresAt: Date | null },
   now = new Date(),
 ): OperatorAccessStatus {
   if (row.status === "disabled") return "disabled";
-  if (
-    row.status === "expired" ||
-    (row.expiresAt !== null && row.expiresAt.getTime() <= now.getTime())
-  ) {
-    return "expired";
-  }
-  return "active";
+  if (row.status === "expired") return "expired";
+
+  // D1 does not enforce the TypeScript status union. Treat corrupt or
+  // future values as disabled instead of accidentally granting access.
+  if (row.status !== "active") return "disabled";
+
+  return row.expiresAt !== null && row.expiresAt.getTime() <= now.getTime()
+    ? "expired"
+    : "active";
 }
 
 function iso(date: Date | null): string | null {

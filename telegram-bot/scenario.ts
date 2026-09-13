@@ -73,7 +73,7 @@ export function getSubmitKeyboard(vacancyId: VacancyId): InlineKeyboardMarkup {
 
 export function getWelcomeText(config: BotConfig): string {
   return `Здравствуйте! 👋
-Я - HR-бот HR Prime. Помогу пройти короткую анкету, выбрать подходящую вакансию и передать заявку HR-менеджеру.
+Я - HR-бот UpHire. Помогу пройти короткую анкету, выбрать подходящую вакансию и передать заявку HR-менеджеру.
 
 Перед началом ознакомьтесь с документами:
 🔗 Политика конфиденциальности: ${config.policyUrl}

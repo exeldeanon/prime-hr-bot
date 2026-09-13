@@ -93,9 +93,9 @@ const steps = [
 
 function Brand() {
   return (
-    <a href="#top" className="group flex items-center gap-2.5" aria-label="HR Prime — наверх">
+    <a href="#top" className="group flex items-center gap-2.5" aria-label="UpHire — наверх">
       <span className="brand-mark relative grid size-11 shrink-0 place-items-center overflow-hidden rounded-[15px] border border-slate-200/80 bg-white/80 shadow-[0_10px_30px_rgba(0,169,181,.13)] backdrop-blur-xl transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_14px_36px_rgba(0,169,181,.2)] dark:border-white/10 dark:bg-white/[.92]">
-        <Image src="/hr-prime-logo.png" alt="" width={1254} height={1254} className="size-[52px] max-w-none scale-[1.14] select-none" />
+        <Image src="/uphire-logo.png" alt="" width={1254} height={1254} className="size-[52px] max-w-none scale-[1.14] select-none" />
       </span>
       <span className="text-[19px] font-black tracking-[-.055em] text-slate-950 dark:text-white">
         HR <span className="gradient-text">Prime</span>
@@ -108,7 +108,7 @@ function ThemeToggle() {
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem("hr-prime-theme");
+    const stored = window.localStorage.getItem("UpHire-theme");
     const initial = stored === "dark";
     document.documentElement.classList.toggle("dark", initial);
     const frame = window.requestAnimationFrame(() => setDark(initial));
@@ -120,7 +120,7 @@ function ThemeToggle() {
     const next = !dark;
     setDark(next);
     document.documentElement.classList.toggle("dark", next);
-    window.localStorage.setItem("hr-prime-theme", next ? "dark" : "light");
+    window.localStorage.setItem("UpHire-theme", next ? "dark" : "light");
   };
 
   return (
@@ -172,8 +172,8 @@ function WorkspaceCard() {
     <div id="practice" className="relative mx-auto w-full max-w-[540px] xl:ml-auto">
       <div className="absolute -inset-12 -z-10 rounded-full bg-[#00c9a7]/16 blur-3xl dark:bg-[#00c9a7]/10" />
       <Image
-        src="/hr-prime-hero.png"
-        alt="Объёмная сфера удалённой команды HR Prime"
+        src="/uphire-hero.png"
+        alt="Объёмная сфера удалённой команды UpHire"
         width={1448}
         height={1086}
         priority
@@ -186,16 +186,16 @@ function WorkspaceCard() {
             <span className="size-2 rounded-full bg-[#bdd1bd]" />
             <span className="size-2 rounded-full bg-[#c6d1da]" />
           </div>
-          <p className="text-[10px] font-semibold uppercase tracking-[.13em] text-slate-600 dark:text-slate-400">HR-Prime · Workspace</p>
+          <p className="text-[10px] font-semibold uppercase tracking-[.13em] text-slate-600 dark:text-slate-400">UpHire · Workspace</p>
         </div>
 
         <div className="grid gap-4 p-4 sm:grid-cols-[1.5fr_.95fr] sm:grid-rows-[minmax(288px,auto)_132px] sm:p-5">
-          <section aria-label="Диалог с HR Prime" className="rounded-[20px] border border-[#d5e3e9] bg-white/58 p-4 shadow-[0_9px_26px_rgba(69,98,112,.08)] backdrop-blur-xl dark:border-white/[.07] dark:bg-white/[.045] sm:p-5">
+          <section aria-label="Диалог с UpHire" className="rounded-[20px] border border-[#d5e3e9] bg-white/58 p-4 shadow-[0_9px_26px_rgba(69,98,112,.08)] backdrop-blur-xl dark:border-white/[.07] dark:bg-white/[.045] sm:p-5">
             <div className="flex items-center justify-between border-b border-[#d8e5ea] pb-3 dark:border-white/[.07]">
               <div className="flex items-center gap-3">
-                <span className="grid size-9 place-items-center overflow-hidden rounded-full border border-[#c9e5e7] bg-white/80 shadow-[0_6px_16px_rgba(5,155,163,.1)] dark:border-white/10 dark:bg-white/[.9]"><Image src="/hr-prime-logo.png" alt="" width={1254} height={1254} className="size-[43px] max-w-none scale-[1.12] select-none" /></span>
+                <span className="grid size-9 place-items-center overflow-hidden rounded-full border border-[#c9e5e7] bg-white/80 shadow-[0_6px_16px_rgba(5,155,163,.1)] dark:border-white/10 dark:bg-white/[.9]"><Image src="/uphire-logo.png" alt="" width={1254} height={1254} className="size-[43px] max-w-none scale-[1.12] select-none" /></span>
                 <div>
-                  <h3 className="text-[14px] font-extrabold leading-tight tracking-[-.025em] text-slate-700 dark:text-white">HR-prime бот</h3>
+                  <h3 className="text-[14px] font-extrabold leading-tight tracking-[-.025em] text-slate-700 dark:text-white">UpHire бот</h3>
                   <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[.08em] text-slate-400">онлайн</p>
                 </div>
               </div>
@@ -297,7 +297,7 @@ export default function Home() {
               <span className="block">в жизнь</span>
             </h1>
             <p className="mt-7 max-w-[680px] text-[16px] leading-[1.72] text-slate-600 sm:text-[17px] dark:text-slate-300">
-              HR Prime набирает команду для удалённой работы: поддержка онлайн-чата и телекома, страховые агенты и affiliate-менеджеры. Гибкий график, оплачиваемое обучение и помощь с оформлением.
+              UpHire набирает команду для удалённой работы: поддержка онлайн-чата и телекома, страховые агенты и affiliate-менеджеры. Гибкий график, оплачиваемое обучение и помощь с оформлением.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <a href="/operator" className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#00b998] to-[#00a7cd] px-6 py-3 text-[13px] font-extrabold text-white shadow-[0_14px_38px_rgba(0,201,167,.28)] transition hover:-translate-y-1 hover:shadow-[0_18px_48px_rgba(0,201,167,.38)]">Вход в практику <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></a>
@@ -313,7 +313,7 @@ export default function Home() {
           <div className="grid overflow-hidden rounded-[26px] border border-white/70 bg-white/55 shadow-[0_24px_80px_rgba(15,23,42,.09)] backdrop-blur-2xl dark:border-white/[.08] dark:bg-white/[.035] sm:grid-cols-2 lg:grid-cols-4">
             {[["4", "открытых вакансии"], ["от 55к ₽", "доход в месяц"], ["гибко", "график работы"], ["100%", "оплата обучения"]].map(([value, label], index) => (
               <div key={label} className={`relative px-6 py-5 sm:px-8 sm:py-6 ${index ? "border-t border-slate-200/60 sm:[&:nth-child(2)]:border-t-0 lg:border-l lg:border-t-0 dark:border-white/[.07]" : ""}`}>
-                <div className="mb-2 flex items-center gap-2"><span className="size-1.5 rounded-full bg-[#00c9a7] shadow-[0_0_10px_#00c9a7]" /><span className="text-[10px] font-bold uppercase tracking-[.15em] text-slate-400">HR Prime</span></div>
+                <div className="mb-2 flex items-center gap-2"><span className="size-1.5 rounded-full bg-[#00c9a7] shadow-[0_0_10px_#00c9a7]" /><span className="text-[10px] font-bold uppercase tracking-[.15em] text-slate-400">UpHire</span></div>
                 <p className="text-[clamp(1.6rem,3vw,2.35rem)] font-black tracking-[-.055em] text-slate-950 dark:text-white">{value}</p>
                 <p className="mt-1 text-[12px] font-medium text-slate-500 dark:text-slate-400">{label}</p>
                 <ChevronRight className="absolute right-5 top-1/2 size-4 -translate-y-1/2 text-slate-300 dark:text-white/15" />
@@ -328,7 +328,7 @@ export default function Home() {
           <SectionHeader
             eyebrow="О компании"
             title="Удалённая работа без лишней бюрократии"
-            description="HR Prime собирает команду для удалённой работы с поддержкой онлайн-чата, телеком-услуг, страховых и партнёрских продуктов. Мы ценим самостоятельность, честность и желание учиться."
+            description="UpHire собирает команду для удалённой работы с поддержкой онлайн-чата, телеком-услуг, страховых и партнёрских продуктов. Мы ценим самостоятельность, честность и желание учиться."
           />
           <div className="grid gap-5 lg:grid-cols-12">
             <article className="glass-card card-glow group relative min-h-[420px] overflow-hidden p-6 sm:p-9 lg:col-span-7">
@@ -474,7 +474,7 @@ export default function Home() {
             <div className="map-frame relative min-h-[520px] overflow-hidden rounded-[30px] border border-white/80 bg-slate-200 shadow-[0_24px_70px_rgba(15,23,42,.12)] dark:border-white/[.08] dark:bg-slate-900">
               <iframe
                 src="https://www.openstreetmap.org/export/embed.html?bbox=37.615%2C55.689%2C37.636%2C55.701&layer=mapnik&marker=55.695296%2C37.625325"
-                title="Офис HR Prime на интерактивной карте"
+                title="Офис UpHire на интерактивной карте"
                 loading="lazy"
                 className="absolute inset-0 size-full border-0"
                 allowFullScreen
@@ -500,7 +500,7 @@ export default function Home() {
                 </div>
                 <a href="https://yandex.ru/maps/?text=%D0%9D%D0%BE%D0%B2%D0%BE%D0%B4%D0%B0%D0%BD%D0%B8%D0%BB%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BD%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%2012%2C%20%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0" target="_blank" rel="noreferrer" className="group mt-7 inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-[12px] font-extrabold text-white transition hover:-translate-y-1 hover:bg-[#00a98e] dark:bg-white dark:text-slate-950 dark:hover:bg-[#55e8cf]">Открыть в Яндекс.Картах <ExternalLink className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" /></a>
               </div>
-              <Image src="/hr-prime-office.png" alt="3D-миниатюра офиса HR Prime у набережной" width={1448} height={1086} className="pointer-events-none -mb-10 mt-auto w-full translate-y-8 select-none drop-shadow-[0_20px_35px_rgba(15,23,42,.22)] transition duration-700 hover:scale-105" />
+              <Image src="/uphire-office.png" alt="3D-миниатюра офиса UpHire у набережной" width={1448} height={1086} className="pointer-events-none -mb-10 mt-auto w-full translate-y-8 select-none drop-shadow-[0_20px_35px_rgba(15,23,42,.22)] transition duration-700 hover:scale-105" />
             </article>
           </div>
         </div>
@@ -549,7 +549,7 @@ export default function Home() {
           <div className="grid gap-12 border-b border-slate-200/80 pb-14 dark:border-white/10 lg:grid-cols-[1.4fr_.6fr_.6fr]">
             <div>
               <Brand />
-              <p className="mt-6 max-w-[490px] text-[15px] leading-[1.75] text-slate-600 dark:text-slate-400">HR Prime — удалённая работа по договору ГПХ с самозанятыми. Открытый набор на 4 направления.</p>
+              <p className="mt-6 max-w-[490px] text-[15px] leading-[1.75] text-slate-600 dark:text-slate-400">UpHire — удалённая работа по договору ГПХ с самозанятыми. Открытый набор на 4 направления.</p>
               <a href="https://t.me/HRinformHR_bot" target="_blank" rel="noreferrer" className="group mt-7 inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#00b998] to-[#00a7cd] px-6 py-3.5 text-[13px] font-extrabold text-white shadow-[0_16px_42px_rgba(0,201,167,.22)] transition hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,201,167,.34)]"><Send className="size-4 fill-white" />Написать в Telegram-бот <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></a>
             </div>
             <div>
@@ -568,7 +568,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col gap-4 pt-7 text-[11px] font-medium text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-            <p>© 2026 HR Prime. Все права защищены.</p>
+            <p>© 2026 UpHire. Все права защищены.</p>
             <a href="/manager" className="transition hover:text-[#008f78] dark:hover:text-white">Вход для менеджера</a>
           </div>
         </div>

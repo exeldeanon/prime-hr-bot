@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 const timestampMs = (name: string) => integer(name, { mode: "timestamp_ms" });
 const currentTimestampMs = sql`(unixepoch() * 1000)`;
@@ -80,3 +80,19 @@ export const operatorAccesses = sqliteTable("operator_accesses", {
   lastSeenAt: timestampMs("last_seen_at"),
   expiresAt: timestampMs("expires_at"),
 });
+
+export const managerLoginRateLimits = sqliteTable(
+  "manager_login_rate_limits",
+  {
+    clientHash: text("client_hash").primaryKey(),
+    windowStartedAt: timestampMs("window_started_at").notNull(),
+    failureCount: integer("failure_count").notNull().default(0),
+    blockedUntil: timestampMs("blocked_until"),
+    updatedAt: timestampMs("updated_at")
+      .notNull()
+      .default(currentTimestampMs),
+  },
+  (table) => [
+    index("manager_login_rate_limits_updated_at_idx").on(table.updatedAt),
+  ],
+);

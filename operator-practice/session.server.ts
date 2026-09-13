@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import {
   decodeBase64UrlText,
   encodeBase64UrlText,
+  getManagerAdminPassword,
   randomBase64Url,
   signHmac,
   verifyHmac,
@@ -64,6 +65,17 @@ function parseCookieHeader(header: string | null, name: string): string | null {
   return null;
 }
 
+function sessionSignatureInput(
+  encodedPayload: string,
+  role: SessionRole,
+): string {
+  if (role !== "manager") return encodedPayload;
+
+  // Keep the credential server-side while binding manager cookies to its
+  // current value. Rotating the password therefore invalidates old cookies.
+  return `${encodedPayload}\u0000manager-password\u0000${getManagerAdminPassword()}`;
+}
+
 async function createSession(
   role: SessionRole,
   subject: string,
@@ -78,7 +90,7 @@ async function createSession(
     nonce: randomBase64Url(18),
   };
   const encodedPayload = encodeBase64UrlText(JSON.stringify(payload));
-  const signature = await signHmac(encodedPayload);
+  const signature = await signHmac(sessionSignatureInput(encodedPayload, role));
   return `${encodedPayload}.${signature}`;
 }
 
@@ -91,7 +103,14 @@ async function verifySession(
   if (parts.length !== 2) return null;
   const [encodedPayload, signature] = parts;
 
-  if (!(await verifyHmac(encodedPayload, signature))) return null;
+  if (
+    !(await verifyHmac(
+      sessionSignatureInput(encodedPayload, expectedRole),
+      signature,
+    ))
+  ) {
+    return null;
+  }
   const json = decodeBase64UrlText(encodedPayload);
   if (!json) return null;
 

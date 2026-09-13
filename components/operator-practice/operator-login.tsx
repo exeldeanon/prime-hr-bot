@@ -13,7 +13,7 @@ import {
   LockKeyhole,
 } from "lucide-react";
 
-import { PracticeBrand } from "@/components/hr-prime/practice-brand";
+import { PracticeBrand } from "@/components/uphire/practice-brand";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -196,7 +196,7 @@ export function OperatorLogin({
               {isInvite ? "Вход по приглашению" : "Операторская практика"}
             </p>
             <h1 className="mt-2 text-[30px] font-black leading-[1.05] tracking-[-.05em] sm:text-[34px]">
-              Практика оператора HR Prime
+              Практика оператора UpHire
             </h1>
             <p className="mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
               Введите логин, который вы получили от менеджера. Пароль для входа не нужен.

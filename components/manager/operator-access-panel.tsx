@@ -21,7 +21,7 @@ import {
   X,
 } from "lucide-react";
 
-import { PracticeBrand } from "@/components/hr-prime/practice-brand";
+import { PracticeBrand } from "@/components/uphire/practice-brand";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   AlertDialog,

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
 import { AlertCircle, KeyRound, LoaderCircle, LogIn, ShieldCheck } from "lucide-react";
 
-import { PracticeBrand } from "@/components/hr-prime/practice-brand";
+import { PracticeBrand } from "@/components/uphire/practice-brand";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +33,10 @@ function managerLoginError(response: Response, data: ApiRecord): string {
         ? data.error.code
         : "";
   const code = rawError.toLowerCase();
+
+  if (response.status === 429 || code.includes("too_many_attempts")) {
+    return "Слишком много попыток входа. Повторите через 15 минут.";
+  }
 
   if (response.status === 401 || code.includes("password") || code.includes("unauthorized")) {
     return "Неверный пароль менеджера.";
