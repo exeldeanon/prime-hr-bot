@@ -39,6 +39,12 @@ export const candidateApplications = sqliteTable("candidate_applications", {
   onlineReady: text("online_ready").notNull(),
   employmentStatus: text("employment_status").notNull(),
   vacancyId: text("vacancy_id").notNull(),
+  leadStatus: text("lead_status").notNull().default("filled"),
+  statusChangedAt: timestampMs("status_changed_at").notNull().default(currentTimestampMs),
+  managerNote: text("manager_note").notNull().default(""),
+  telegramUsername: text("telegram_username"),
+  trainingCourse: text("training_course"),
+  trainingStartedAt: timestampMs("training_started_at"),
   managerDeliveryStatus: text("manager_delivery_status")
     .notNull()
     .default("not_configured"),
